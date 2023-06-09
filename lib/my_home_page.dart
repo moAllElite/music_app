@@ -1,11 +1,12 @@
 import 'dart:io';
+import 'package:music_app/music_page.dart';
 import 'package:music_app/pallette_color.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_media_metadata/flutter_media_metadata.dart';
 import 'package:google_fonts/google_fonts.dart';
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title,});
+  const MyHomePage({super.key, required this.title});
   final String title;
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -60,60 +61,79 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: audioList.length,
         itemBuilder: ((context,index){
           Metadata music=audioMetaData[index];
-          return Dismissible
-          (
-            direction: DismissDirection.startToEnd,
-            background: Container(
-              color: removerColor,
-              padding:const EdgeInsets.only(top: 20),
-              child:const Icon(Icons.delete),
-            ),
-            onDismissed: (direction){
-              setState(() => audioList.removeAt(index));
-              setState(() =>audioMetaData.removeAt(index));
-              setState(() {});
-              },
-
-
-            key: UniqueKey(),
-            child:  Row(
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(top: 10.0,bottom: 10.0,left: 20.0),
-                  height: 80,
-                  width: 86,
-                  clipBehavior: Clip.hardEdge,
-                  decoration:BoxDecoration(
-                      borderRadius: BorderRadius.circular(10)
-                  ),
-                  child:music.albumArt==null?
-                  Image.asset(
-                    "images/cover.png",
-                    fit: BoxFit.cover,
-                  ):
-                  Image.memory(
-                      music.albumArt!,
-                    fit: BoxFit.cover,
-                  ),
+          return InkWell(
+            onTap: (){
+              Navigator.push(
+                  context,
+                MaterialPageRoute(builder: (context){
+                  return  MusicPage(
+                    audioList:audioList,
+                    audioMetadata: audioMetaData,
+                    index: index,
+                  );
+                })
+              );
+            },
+            child: Dismissible
+            (
+              direction: DismissDirection.startToEnd,
+              background: Container(
+                color: removerColor,
+                padding:const EdgeInsets.only(top: 10,left: 10,right: 10),
+                child:const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                     Icon(Icons.delete,color: Colors.white,)
+                  ],
                 ),
-                Container(
-                  padding:const EdgeInsets.only(left: 10.0,top: 7.0),
-                  child: Column(
-                    children:[
-                      textWithStyle(
-                          music.trackName != null?
-                            music.filePath!.split("/").last: "inconnue".toUpperCase(),
-                          1.0
-                      ) ,
-                      textWithStyle(
-                          music.trackArtistNames!=null?
-                          music.trackArtistNames!.join(" "): "inconnue".toUpperCase()
-                          , 0.9
-                      ),
-                    ]
-                ),
-              )
-            ],
+              ),
+              onDismissed: (direction){
+                setState(() => audioList.removeAt(index));
+                setState(() =>audioMetaData.removeAt(index));
+                setState(() {});
+                },
+              behavior: HitTestBehavior.translucent,
+              key: UniqueKey(),
+              child:  Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(top: 10.0,bottom: 10.0,left: 20.0),
+                    height: 80,
+                    width: 86,
+                    clipBehavior: Clip.hardEdge,
+                    decoration:BoxDecoration(
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child:music.albumArt==null?
+                    Image.asset(
+                      "images/cover.png",
+                      fit: BoxFit.cover,
+                    ):
+                    Image.memory(
+                        music.albumArt!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Container(
+                    padding:const EdgeInsets.only(left: 10.0,top: 7.0),
+                    child: Column(
+                      children:[
+                        textWithStyle(
+                            music.trackName != null?
+                              music.filePath!.split("/").last: "inconnue".toUpperCase(),
+                            1.0
+                        ) ,
+                        textWithStyle(
+                            music.trackArtistNames!=null?
+                            music.trackArtistNames!.join(" "): "inconnue".toUpperCase()
+                            , 0.9
+                        ),
+                      ]
+                  ),
+                )
+              ],
+              ),
             ),
           );
         }),
