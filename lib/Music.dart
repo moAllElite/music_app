@@ -6,5 +6,5 @@ class Music{
    String? path;
    Uint8List? cover;
 
-   Music({String? titre,String? artiste,String? path, Uint8List? cover});
+   Music(this.titre, this.artiste, this.path, this.cover);
 }
