@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="main.dart (1)" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
+    <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+    <method v="2">
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="" externalProjectPath="C:/xsrc/gradle-8.1.1/bin" vmOptions="" scriptParameters="" />
+    </method>
+  </configuration>
+</component>

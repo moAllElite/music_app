@@ -118,9 +118,13 @@ class _MusicPageState extends State<MusicPage> {
                       1
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.repeat, color: Colors.grey[900],),
+                iconButton (Icons.repeat,
+                  repeatMusic?lowBrown:Colors.grey[900]!,
+                   () {
+                     setState(() {
+                       repeatMusic=!repeatMusic;
+                     });
+                   }
                 ),
                 const SizedBox(
                   height: 12,
@@ -155,20 +159,19 @@ class _MusicPageState extends State<MusicPage> {
                     children: [
                       circleWithAvatar(
                           Icons.skip_previous_rounded,
-                          Colors.transparent, () async =>
-                      await audioPlayer.pause()
+                          Colors.transparent,
+                          () async =>previousMusic()
                       ),
                       circleWithAvatar(
-                        Icons.play_arrow_rounded,
+                          (playerState == PlayerState.playing)?
+                           Icons.play_arrow:Icons.pause_circle, 
                           removerColor,
-                          () {
-
-                          },
+                          changeAudioPlayerState
                         ),
                       circleWithAvatar(
                           Icons.skip_next_rounded,
-                          Colors.transparent, () async =>
-                      await audioPlayer.stop()
+                          Colors.transparent, 
+                          () async => nextMusic()
                       ),
                     ],
                   ),
