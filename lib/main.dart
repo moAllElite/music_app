@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:music_app/my_home_page.dart';
 import 'package:music_app/pallette_color.dart';
+import 'package:music_app/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +10,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,16 +17,38 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         appBarTheme:const AppBarTheme(
-          color: appBarColor
+          color: appBarColor,
         ),
         sliderTheme:const SliderThemeData(
           thumbShape: RoundSliderThumbShape(
             enabledThumbRadius: 5.5,
           ),
-          trackHeight: 10
+          trackHeight: 10,
+        ),
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(
+            color: textColor,
+          ),
         ),
       ),
-      home: const MyHomePage(title: 'Music App'),
+      darkTheme: ThemeData(
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(
+            color: purWhite,
+          ),
+        ),
+        sliderTheme:const SliderThemeData(
+          thumbShape: RoundSliderThumbShape(
+            enabledThumbRadius: 5.5,
+          ),
+          trackHeight: 10,
+        ),
+        appBarTheme:const AppBarTheme(
+            backgroundColor: dark
+         ),
+        scaffoldBackgroundColor: dark,
+      ),
+      home: const SplachScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
